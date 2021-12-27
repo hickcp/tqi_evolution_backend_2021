@@ -29,6 +29,7 @@ public class EmpresaController {
         this.empresaService = empresaService;
         this.publisher = publisher;
     }
+
     @PostMapping("/cadastrar")
     public ResponseEntity<Empresa> salvar(@Validated @RequestBody Empresa empresa, HttpServletResponse response){
 
