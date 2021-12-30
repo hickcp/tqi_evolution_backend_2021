@@ -1,8 +1,8 @@
 package com.tqi.evoultion.backend.emprestimobanco.api;
 
 import com.tqi.evoultion.backend.emprestimobanco.domain.event.RecursoCriadoEvent;
-import com.tqi.evoultion.backend.emprestimobanco.domain.model.Empresa;
-import com.tqi.evoultion.backend.emprestimobanco.domain.service.EmpresaService;
+import com.tqi.evoultion.backend.emprestimobanco.domain.model.Usuario;
+import com.tqi.evoultion.backend.emprestimobanco.domain.service.UsuarioService;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,28 +13,23 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletResponse;
 
 @CrossOrigin
 @Controller
-@RequestMapping(path = "/empresa")
-public class EmpresaController {
-
-    private EmpresaService empresaService;
-
+@RequestMapping(path="/usuario")
+public class UsuarioController {
+    private UsuarioService usuarioService;
     private ApplicationEventPublisher publisher;
 
-    public EmpresaController(EmpresaService empresaService, ApplicationEventPublisher publisher){
-        this.empresaService = empresaService;
+    public UsuarioController(UsuarioService usuarioService, ApplicationEventPublisher publisher) {
+        this.usuarioService = usuarioService;
         this.publisher = publisher;
     }
-
     @PostMapping("/cadastrar")
-    public ResponseEntity<Empresa> salvar(@Validated @RequestBody Empresa empresa, HttpServletResponse response){
-
-        Empresa e = empresaService.salvarEmpresa(empresa);
-        publisher.publishEvent(new RecursoCriadoEvent(this, response, e.getId()));
-        return ResponseEntity.status(HttpStatus.CREATED).body(e);
+    public ResponseEntity<Usuario> salvar(@Validated @RequestBody  Usuario usuario, HttpServletResponse response){
+        Usuario u = usuarioService.salvarUsuario(usuario);
+        publisher.publishEvent(new RecursoCriadoEvent(this, response, u.getId()));
+        return ResponseEntity.status(HttpStatus.CREATED).body(u);
     }
 }

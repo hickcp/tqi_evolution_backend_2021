@@ -14,8 +14,9 @@ public class EmpresaService {
     private EmpresaService(EmpresaRepository empresaRepository){this.empresaRepository = empresaRepository;}
 
 
-    public Empresa salvarEmpresa(Empresa e){
-        e.getUsuarios().forEach(u -> u.setEmpresa(e));
-        return empresaRepository.save(e);
+    public Empresa salvarEmpresa(Empresa e){  //"seta" a empresa para todos os usuarios q retornarem no getUsuario
+        //e.getUsuarios().forEach(u -> u.setEmpresa(e));
+        //e.getEmprestimos().forEach(u -> u.setEmpresa(e));
+        return empresaRepository.save(e); //salva no BD as alterações
     }
 }

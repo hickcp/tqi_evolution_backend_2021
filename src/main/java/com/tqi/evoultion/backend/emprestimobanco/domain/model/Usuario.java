@@ -1,6 +1,6 @@
 package com.tqi.evoultion.backend.emprestimobanco.domain.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -34,16 +34,14 @@ public class Usuario implements UserDetails {
     @Column(nullable = false, name = "Renda")
     private Long renda;
 
+    @Column(nullable = false, name="Endereco")
+    private String endereco_completo;
+
 
 
     @ManyToOne
-    @JoinColumn(name = "id_empresa")
+    @JoinColumn(name = "id_empresa", referencedColumnName = "id")
     private Empresa empresa;
-
-    @OneToOne
-    @JoinColumn(name = "endereco_id", referencedColumnName = "id")
-    private EnderecoUsuario enderecoUsuario;
-
 
     public Long getId() {
         return id;
@@ -101,6 +99,14 @@ public class Usuario implements UserDetails {
         this.renda = renda;
     }
 
+    public String getEndereco_completo() {
+        return endereco_completo;
+    }
+
+    public void setEndereco_completo(String endereco_completo) {
+        this.endereco_completo = endereco_completo;
+    }
+
     public Empresa getEmpresa() {
         return empresa;
     }
@@ -108,16 +114,6 @@ public class Usuario implements UserDetails {
     public void setEmpresa(Empresa empresa) {
         this.empresa = empresa;
     }
-
-
-    public EnderecoUsuario getEnderecoUsuario() {
-        return enderecoUsuario;
-    }
-
-    public void setEnderecoUsuario(EnderecoUsuario enderecoUsuario) {
-        this.enderecoUsuario = enderecoUsuario;
-    }
-
 
 
     @Override
