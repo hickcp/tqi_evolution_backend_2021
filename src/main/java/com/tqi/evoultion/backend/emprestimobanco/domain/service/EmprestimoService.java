@@ -1,0 +1,31 @@
+package com.tqi.evoultion.backend.emprestimobanco.domain.service;
+
+import com.tqi.evoultion.backend.emprestimobanco.domain.exception.EntidadeNaoEncontradaException;
+import com.tqi.evoultion.backend.emprestimobanco.domain.model.Emprestimo;
+import com.tqi.evoultion.backend.emprestimobanco.domain.repository.EmprestimoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class EmprestimoService {
+
+    private EmprestimoRepository emprestimoRepository;
+
+    @Autowired
+    public EmprestimoService(EmprestimoRepository emprestimoRepository) {
+        this.emprestimoRepository = emprestimoRepository;
+    }
+
+    public Emprestimo salvarEmprestimo(Emprestimo e){
+        return emprestimoRepository.save(e);
+    }
+
+    public Emprestimo getEmprestimo(long id){
+        return findOrFail(id);
+    }
+
+    private Emprestimo findOrFail(Long id){
+        return emprestimoRepository.findById(id). //Exceção personalizada
+                orElseThrow(() -> new EntidadeNaoEncontradaException("Empréstimo não localizado")); //Função que retorna a pessoa ou um erro (EntidadeNaoEncontradaException)
+    }
+}

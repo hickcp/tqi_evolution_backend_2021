@@ -8,10 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -32,4 +29,10 @@ public class UsuarioController {
         publisher.publishEvent(new RecursoCriadoEvent(this, response, u.getId()));
         return ResponseEntity.status(HttpStatus.CREATED).body(u);
     }
+
+    @GetMapping("/buscar/{email}")
+    public ResponseEntity<Usuario> buscar(@PathVariable(name = "email") String email){
+        return ResponseEntity.ok(usuarioService.getUsuario(email));
+    }
+
 }
