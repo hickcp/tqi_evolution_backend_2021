@@ -1,12 +1,15 @@
 package com.tqi.evoultion.backend.emprestimobanco.domain.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 
 @Entity
@@ -37,11 +40,18 @@ public class Usuario implements UserDetails {
     @Column(nullable = false, name="Endereco")
     private String endereco_completo;
 
+    public List<Emprestimo> getEmprestimos() {
+        return emprestimos;
+    }
+
+    public void setEmprestimos(List<Emprestimo> emprestimos) {
+        this.emprestimos = emprestimos;
+    }
 
 
-    @ManyToOne
-    @JoinColumn(name = "id_empresa", referencedColumnName = "id")
-    private Empresa empresa;
+    @JsonIgnoreProperties("usuario")
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Emprestimo> emprestimos = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -107,13 +117,6 @@ public class Usuario implements UserDetails {
         this.endereco_completo = endereco_completo;
     }
 
-    public Empresa getEmpresa() {
-        return empresa;
-    }
-
-    public void setEmpresa(Empresa empresa) {
-        this.empresa = empresa;
-    }
 
 
     @Override
