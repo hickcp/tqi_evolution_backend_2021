@@ -1,12 +1,11 @@
 package com.tqi.evoultion.backend.emprestimobanco.domain.service;
 
 
-import com.tqi.evoultion.backend.emprestimobanco.domain.model.Usuario;
-import com.tqi.evoultion.backend.emprestimobanco.domain.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import com.tqi.evoultion.backend.emprestimobanco.domain.model.Usuario;
+import com.tqi.evoultion.backend.emprestimobanco.domain.repository.UsuarioRepository;
 
 @Service
 public class UsuarioService {
@@ -22,6 +21,6 @@ public class UsuarioService {
         return usuarioRepository.save(u);
     }
     public Usuario getUsuario(String email){
-        return usuarioRepository.findByEmail(email);
+        return usuarioRepository.findByEmail(email).get();
     }
 }
