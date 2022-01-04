@@ -1,5 +1,7 @@
 package com.tqi.evoultion.backend.emprestimobanco.security;
 
+import java.util.Arrays;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -31,9 +33,9 @@ public class JWTConfiguracao extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable().authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/login").permitAll()
+    protected void configure(HttpSecurity http) throws Exception {    	
+        http.cors().and().csrf().disable().authorizeRequests()
+                .antMatchers("/login").permitAll()
                 .antMatchers("/h2-console/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
@@ -41,15 +43,14 @@ public class JWTConfiguracao extends WebSecurityConfigurerAdapter {
                 .addFilter(new JWTValidarFilter(authenticationManager()))
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         
-        http.headers().frameOptions().sameOrigin();
+        // Apenas para funcionar o H2 Console
+        http.headers().frameOptions().sameOrigin();       
     }
 
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
-        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-
-        CorsConfiguration corsConfiguration = new CorsConfiguration().applyPermitDefaultValues();
-        source.registerCorsConfiguration("/**", corsConfiguration);
+    	UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
         return source;
     }
 
