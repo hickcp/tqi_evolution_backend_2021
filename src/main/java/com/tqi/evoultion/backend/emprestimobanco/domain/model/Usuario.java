@@ -1,19 +1,23 @@
 package com.tqi.evoultion.backend.emprestimobanco.domain.model;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
-import javax.persistence.*;
-
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 @Entity
-public class Usuario implements UserDetails {
+public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,29 +29,21 @@ public class Usuario implements UserDetails {
     @Column(nullable = false, name = "Email", length = 50, unique = true)
     private String email;
 
-    @Column(nullable = false, name = "Senha", length = 50)
+    @Column(nullable = false, name = "Senha", length = 255)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String senha;
 
     @Column(nullable = false, name = "CPF", length = 50, unique = true)
     private String cpf;
 
-    @Column(nullable = false, name = "RG", length = 50, unique = true)
+    @Column(name = "RG", length = 50)
     private String rg;
 
     @Column(nullable = false, name = "Renda")
     private Long renda;
 
-    @Column(nullable = false, name="Endereco")
+    @Column(nullable = false, name = "Endereco")
     private String endereco_completo;
-
-    public List<Emprestimo> getEmprestimos() {
-        return emprestimos;
-    }
-
-    public void setEmprestimos(List<Emprestimo> emprestimos) {
-        this.emprestimos = emprestimos;
-    }
-
 
     @JsonIgnoreProperties("usuario")
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -116,41 +112,12 @@ public class Usuario implements UserDetails {
     public void setEndereco_completo(String endereco_completo) {
         this.endereco_completo = endereco_completo;
     }
-
-
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+    
+    public List<Emprestimo> getEmprestimos() {
+        return emprestimos;
     }
 
-    @Override
-    public String getPassword() {
-        return this.senha;
-    }
-
-    @Override
-    public String getUsername() {
-        return this.email;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
+    public void setEmprestimos(List<Emprestimo> emprestimos) {
+        this.emprestimos = emprestimos;
     }
 }
