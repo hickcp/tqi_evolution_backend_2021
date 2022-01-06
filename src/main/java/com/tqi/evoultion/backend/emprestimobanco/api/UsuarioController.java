@@ -3,6 +3,7 @@ package com.tqi.evoultion.backend.emprestimobanco.api;
 import com.tqi.evoultion.backend.emprestimobanco.domain.event.RecursoCriadoEvent;
 import com.tqi.evoultion.backend.emprestimobanco.domain.model.Usuario;
 import com.tqi.evoultion.backend.emprestimobanco.domain.service.UsuarioService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +17,10 @@ import javax.servlet.http.HttpServletResponse;
 @Controller
 @RequestMapping(path="/usuario")
 public class UsuarioController {
+
+    @Autowired
     private UsuarioService usuarioService;
+    @Autowired
     private ApplicationEventPublisher publisher;
 
     public UsuarioController(UsuarioService usuarioService, ApplicationEventPublisher publisher) {

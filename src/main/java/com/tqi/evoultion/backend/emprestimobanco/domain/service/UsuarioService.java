@@ -2,6 +2,7 @@ package com.tqi.evoultion.backend.emprestimobanco.domain.service;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import com.tqi.evoultion.backend.emprestimobanco.domain.model.Usuario;
@@ -17,7 +18,6 @@ public class UsuarioService {
     }
 
     public Usuario salvarUsuario(Usuario u){
-
         return usuarioRepository.save(u);
     }
     public Usuario getUsuario(String email){
