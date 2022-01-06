@@ -24,7 +24,7 @@ public class Usuario {
     private Long id;
 
     @Column(nullable = false, name = "Nome_Usuario", length = 50)
-    private String nome_usuario;
+    private String nomeUsuario;
 
     @Column(nullable = false, name = "Email", length = 50, unique = true)
     private String email;
@@ -43,7 +43,7 @@ public class Usuario {
     private Long renda;
 
     @Column(nullable = false, name = "Endereco")
-    private String endereco_completo;
+    private String enderecoCompleto;
 
     @JsonIgnoreProperties("usuario")
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -57,12 +57,12 @@ public class Usuario {
         this.id = id;
     }
 
-    public String getNome_usuario() {
-        return nome_usuario;
+    public String getNomeUsuario() {
+        return nomeUsuario;
     }
 
-    public void setNome_usuario(String nome_usuario) {
-        this.nome_usuario = nome_usuario;
+    public void setNomeUsuario(String nomeUsuario) {
+        this.nomeUsuario = nomeUsuario;
     }
 
     public String getEmail() {
@@ -105,12 +105,12 @@ public class Usuario {
         this.renda = renda;
     }
 
-    public String getEndereco_completo() {
-        return endereco_completo;
+    public String getEnderecoCompleto() {
+        return enderecoCompleto;
     }
 
-    public void setEndereco_completo(String endereco_completo) {
-        this.endereco_completo = endereco_completo;
+    public void setEnderecoCompleto(String enderecoCompleto) {
+        this.enderecoCompleto = enderecoCompleto;
     }
     
     public List<Emprestimo> getEmprestimos() {

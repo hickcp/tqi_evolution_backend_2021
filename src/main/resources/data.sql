@@ -1,1 +1,1 @@
-INSERT INTO Usuario (nome_usuario, email, cpf, endereco, renda, senha) VALUES ('usuario', 'usuario@email.com', '129.739.620-05', 'Av Paulista, 1450', 5000, '$2a$10$9GTeaS46MkGthW9R/BPSP.7aHMaIAtJpobiEN1R0Vzztl7LMFcF9K');
+INSERT INTO Usuario (nome_usuario, email, cpf, rg,endereco, renda, senha) VALUES ('usuario', 'usuario@email.com', '129.739.620-05', '15.789.100-5', 'Av Paulista, 1450', 5000, '$2a$10$9GTeaS46MkGthW9R/BPSP.7aHMaIAtJpobiEN1R0Vzztl7LMFcF9K');
