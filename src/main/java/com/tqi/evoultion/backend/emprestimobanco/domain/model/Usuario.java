@@ -1,6 +1,20 @@
 package com.tqi.evoultion.backend.emprestimobanco.domain.model;
 
-import javax.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 
 @Entity
 public class Usuario {
@@ -10,23 +24,30 @@ public class Usuario {
     private Long id;
 
     @Column(nullable = false, name = "Nome_Usuario", length = 50)
-    private String nome_usuario;
+    private String nomeUsuario;
 
-    @Column(nullable = false, name = "Email", length = 50)
+    @Column(nullable = false, name = "Email", length = 50, unique = true)
     private String email;
 
-    @Column(nullable = false, name = "Senha", length = 50)
+    @Column(nullable = false, name = "Senha", length = 255)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String senha;
 
-    @Column(nullable = false, name = "CPF", length = 50)
+    @Column(nullable = false, name = "CPF", length = 50, unique = true)
     private String cpf;
 
-    @Column(nullable = false, name = "RG", length = 50)
+    @Column(name = "RG", length = 50)
     private String rg;
 
-    @ManyToOne
-    @JoinColumn(name = "id_empresa")
-    private Empresa empresa;
+    @Column(nullable = false, name = "Renda")
+    private Long renda;
+
+    @Column(nullable = false, name = "Endereco")
+    private String enderecoCompleto;
+
+    @JsonIgnoreProperties("usuario")
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Emprestimo> emprestimos = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -36,12 +57,12 @@ public class Usuario {
         this.id = id;
     }
 
-    public String getNome_usuario() {
-        return nome_usuario;
+    public String getNomeUsuario() {
+        return nomeUsuario;
     }
 
-    public void setNome_usuario(String nome_usuario) {
-        this.nome_usuario = nome_usuario;
+    public void setNomeUsuario(String nomeUsuario) {
+        this.nomeUsuario = nomeUsuario;
     }
 
     public String getEmail() {
@@ -76,11 +97,27 @@ public class Usuario {
         this.rg = rg;
     }
 
-    public Empresa getEmpresa() {
-        return empresa;
+    public Long getRenda() {
+        return renda;
     }
 
-    public void setEmpresa(Empresa empresa) {
-        this.empresa = empresa;
+    public void setRenda(Long renda) {
+        this.renda = renda;
+    }
+
+    public String getEnderecoCompleto() {
+        return enderecoCompleto;
+    }
+
+    public void setEnderecoCompleto(String enderecoCompleto) {
+        this.enderecoCompleto = enderecoCompleto;
+    }
+    
+    public List<Emprestimo> getEmprestimos() {
+        return emprestimos;
+    }
+
+    public void setEmprestimos(List<Emprestimo> emprestimos) {
+        this.emprestimos = emprestimos;
     }
 }
