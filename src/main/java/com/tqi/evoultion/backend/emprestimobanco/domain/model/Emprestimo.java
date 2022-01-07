@@ -3,6 +3,7 @@ package com.tqi.evoultion.backend.emprestimobanco.domain.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -19,7 +20,7 @@ public class Emprestimo {
     private Integer parcelas;
 
     @Column(name="PrimeiraParcela", nullable = false)
-    private Date primeiraParcela;
+    private LocalDate primeiraParcela;
 
     public Long getId() {
         return id;
@@ -58,11 +59,11 @@ public class Emprestimo {
         this.parcelas = parcelas;
     }
 
-    public Date getPrimeiraParcela() {
+    public LocalDate getPrimeiraParcela() {
         return primeiraParcela;
     }
 
-    public void setPrimeiraParcela(Date primeiraParcela) {
+    public void setPrimeiraParcela(LocalDate primeiraParcela) {
         this.primeiraParcela = primeiraParcela;
     }
 }

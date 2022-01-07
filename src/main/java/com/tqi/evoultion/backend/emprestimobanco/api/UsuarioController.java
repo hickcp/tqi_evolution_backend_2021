@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -23,15 +24,18 @@ public class UsuarioController {
     @Autowired
     private ApplicationEventPublisher publisher;
 
-    public UsuarioController(UsuarioService usuarioService, ApplicationEventPublisher publisher) {
+    private PasswordEncoder encoder;
+
+    public UsuarioController(UsuarioService usuarioService, ApplicationEventPublisher publisher, PasswordEncoder encoder) {
         this.usuarioService = usuarioService;
         this.publisher = publisher;
+        this.encoder = encoder;
     }
     @PostMapping("/cadastrar")
-    public ResponseEntity<Usuario> salvar(@Validated @RequestBody  Usuario usuario, HttpServletResponse response){
-        Usuario u = usuarioService.salvarUsuario(usuario);
-        publisher.publishEvent(new RecursoCriadoEvent(this, response, u.getId()));
-        return ResponseEntity.status(HttpStatus.CREATED).body(u);
+    public ResponseEntity<Usuario> salvar(@Validated @RequestBody  Usuario usuario/*, PasswordEncoder encoder*/, HttpServletResponse response){
+        usuario.setSenha(encoder.encode(usuario.getSenha()));
+        return ResponseEntity.ok(usuarioService.salvarUsuario(usuario));
+
     }
 
     @GetMapping("/buscar/{email}")
