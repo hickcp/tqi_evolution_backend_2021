@@ -1,14 +1,14 @@
-#Projeto TQI EVOLUTION 2022
+# Projeto TQI EVOLUTION 2022
 
-###Link da playlist de demonstração do projeto:
+### Link da playlist de demonstração do projeto:
 https://www.youtube.com/watch?v=KSv0FB2VUuw&list=PLhH7Pu0gQWFpxg9q71IZHZJLMYcQJBz5i&index=1
 
-###Link do repositório frontend usado para consumo:
+### Link do repositório frontend usado para consumo:
 
 https://github.com/hickcp/tqi_evolution_frontend_2021
 
 
-O projeto consiste em fazer um banco em que um usuário possa fazer solicitações de empréstimos.
+O projeto consiste em fazer um banco (Spring Boot API) em que um usuário possa fazer solicitações de empréstimos.
 
 O Usuário consegue se cadastrar, fazer o login, visualizar suas informações, solicitar um empréstimo e ver as informações detalhadas.
 
@@ -26,6 +26,8 @@ Email: usuario@email.com
 Senha: @Senha123
 
 OBS: VOCÊ CONSEGUE FAZER SEU PRÓPRIO CADASTRO PARA LOGIN NO FRONT-END DISPONÍVEL AQUI NO README.MD.
+
+OBS2: O NÚMEOR MÁXIMO DE PARCELAS É 60, E A DATA DA PRIMEIRA PARCELA NÃO PODE ULTRAPASSAR 60 DIAS!
 
 No front-end foi usado a IDE Visual Studio Code e usado o plugin Live Server para subir a página HTML.
 
