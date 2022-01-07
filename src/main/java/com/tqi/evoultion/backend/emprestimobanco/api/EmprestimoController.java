@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDate;
 import java.util.List;
 
 @CrossOrigin
@@ -41,7 +42,8 @@ public class EmprestimoController {
 
     @PostMapping("/solicitar")
     public ResponseEntity<Object> salvar(@Validated @RequestBody Emprestimo emprestimo, HttpServletResponse response, Authentication auth){
-        if (emprestimo.getParcelas() == 60 || emprestimo.getParcelas() <60) {
+        LocalDate hoje = LocalDate.now().plusDays(90);
+        if (emprestimo.getParcelas() == 60 || emprestimo.getParcelas() <60 || emprestimo.getPrimeiraParcela().isBefore(hoje) ) {
             String email = auth.getName();
             Usuario usuario = usuarioRepository.findByEmail(email).get();
             emprestimo.setUsuario(usuario);
